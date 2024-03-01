@@ -29,7 +29,11 @@
                             itemKey="title"
                         >
                             <template #item="{ element, index }">
-                            <div class="list-group-item">{{ element.title }} {{ element.id }}</div>
+                            <v-card-text class="list-group-item">
+                                <div> {{ element.title }} </div>
+                                <div> {{ element.severity }} </div>    
+                                <div> {{ element.date }}</div>
+                            </v-card-text>
                             </template>
                         </draggable>
                     </v-card>
@@ -47,7 +51,11 @@
                             itemKey="title"
                         >
                             <template #item="{ element, index }">
-                            <div class="list-group-item">{{ element.title }} {{ element.id }}</div>
+                            <v-card-text class="list-group-item">
+                                <div >{{ element.title }}</div>
+                                <div >{{ element.severity }}</div>   
+                                <div> {{ element.date }}</div> 
+                            </v-card-text>
                             </template>
                         </draggable>
                     </v-card>
@@ -65,7 +73,11 @@
                             itemKey="title"
                         >
                             <template #item="{ element, index }">
-                            <div class="list-group-item">{{ element.title }} {{ element.id }}</div>
+                            <v-card-text class="list-group-item">
+                                <div >{{ element.title }}</div>
+                                <div >{{ element.severity }}</div>    
+                                <div> {{ element.date }}</div>
+                            </v-card-text>
                             </template>
                         </draggable>
                     </v-card>
@@ -83,7 +95,11 @@
                             itemKey="title"
                         >
                             <template #item="{ element, index }">
-                            <div class="list-group-item">{{ element.title }} {{ element.id }}</div>
+                            <v-card-text class="list-group-item">
+                                <div >{{ element.title }}</div>
+                                <div >{{ element.severity }}</div>    
+                                <div> {{ element.date }}</div>
+                            </v-card-text>
                             </template>
                         </draggable>
                     </v-card>
@@ -98,6 +114,22 @@
 import { ref } from 'vue'
 import draggable from 'vuedraggable'
 
+const uuid4 = () => {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+    .replace(/[xy]/g, function (c) {
+        const r = Math.random() * 16 | 0, 
+            v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+const randomDate = () => {
+    const startDate = new Date('2022-01-01');
+    const endDate = new Date('2022-12-31');
+    const timeDiff = endDate.getTime() - startDate.getTime();
+    const randomTime = Math.random() * timeDiff;
+    const randomDate = new Date(startDate.getTime() + randomTime);
+    return randomDate.toISOString().slice(0, 10);
+}
 export default {
     components: {
         draggable
@@ -105,10 +137,10 @@ export default {
     data(){
         return {
             arrBacklog: [
-                {id:0, title:'lorem ipsummm'},
-                {id:1, title:'lorem ipsummm'},
-                {id:2, title:'lorem ipsummm'},
-                {id:3, title:'lorem ipsummm'},
+                {id:uuid4(), title:'lorem ipsummm', status:'ongoing', severity:'low', date: randomDate()},
+                {id:uuid4(), title:'lorem ipsummm', status:'ongoing', severity:'low', date: randomDate()},
+                {id:uuid4(), title:'lorem ipsummm', status:'ongoing', severity:'medium', date: randomDate()},
+                {id:uuid4(), title:'lorem ipsummm', status:'ongoing', severity:'high', date: randomDate()},
             ],
             arrProgress: [],
             arrTesting: [],
@@ -117,10 +149,8 @@ export default {
     },
     methods: {
         addTask: function(){
-            const lastIndex = this.arrBacklog.length - 1
-            const lastValue = this.arrBacklog[lastIndex].id + 1
-            this.arrBacklog.push({id:lastValue,title:this.newTask})
-            console.log({id:lastValue, title:this.newTask})
+            this.arrBacklog.push({id:uuid4(),title:this.newTask,status:'ongoing',severity:'low',date: randomDate()})
+            console.log({id:uuid4(), title:this.newTask})
         }
     }
 }
@@ -129,7 +159,10 @@ export default {
 <style>
 .list-group-item {
     border: 1px solid #ddd; /* Add a thin border to each list item */
-    margin-top: -1px; /* Prevent double borders */
+    margin-top: 10px; /* Prevent double borders */
+    margin-bottom: 22px;
+    margin-left: 20px;
+    margin-right: 20px;
     background-color: #f6f6f6; /* Add a grey background color */
     padding: 12px; /* Add some padding */
 }
