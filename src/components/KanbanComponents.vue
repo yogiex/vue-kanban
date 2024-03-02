@@ -20,7 +20,7 @@
             <v-col cols="4">
                 <v-container>
                     <v-card>
-                        <v-card-title>Backlog</v-card-title>
+                        <v-card-title class="bg-blue">Backlog</v-card-title>
                         <draggable
                             class="list-group"
                             :list="arrBacklog"
@@ -30,9 +30,11 @@
                         >
                             <template #item="{ element, index }">
                             <v-card-text class="list-group-item">
-                                <div> {{ element.title }} </div>
-                                <div> {{ element.severity }} </div>    
-                                <div> {{ element.date }}</div>
+                                <div class="font-weight-black"> {{ element.title }} </div>
+                                <v-chip color="primary mt-4" variant="outlined">
+                                    <div> {{ element.level }} </div>    
+                                </v-chip>
+                                <div class="mt-4 ml-2"> {{ element.date }}</div>
                             </v-card-text>
                             </template>
                         </draggable>
@@ -42,7 +44,7 @@
             <v-col>
                 <v-container>
                     <v-card>
-                        <v-card-title>Progress</v-card-title>
+                        <v-card-title class="bg-pink">Progress</v-card-title>
                         <draggable
                             class="list-group"
                             :list="arrProgress"
@@ -52,9 +54,11 @@
                         >
                             <template #item="{ element, index }">
                             <v-card-text class="list-group-item">
-                                <div >{{ element.title }}</div>
-                                <div >{{ element.severity }}</div>   
-                                <div> {{ element.date }}</div> 
+                                <div class="font-weight-black"> {{ element.title }} </div>
+                                <v-chip color="primary mt-4" variant="outlined">
+                                    <div> {{ element.level }} </div>    
+                                </v-chip>
+                                <div class="mt-4 ml-2"> {{ element.date }}</div> 
                             </v-card-text>
                             </template>
                         </draggable>
@@ -64,7 +68,7 @@
             <v-col>
                 <v-container>
                     <v-card>
-                        <v-card-title>Testing</v-card-title>
+                        <v-card-title class="bg-purple">Testing</v-card-title>
                         <draggable
                             class="list-group"
                             :list="arrTesting"
@@ -74,9 +78,11 @@
                         >
                             <template #item="{ element, index }">
                             <v-card-text class="list-group-item">
-                                <div >{{ element.title }}</div>
-                                <div >{{ element.severity }}</div>    
-                                <div> {{ element.date }}</div>
+                                <div class="font-weight-black"> {{ element.title }} </div>
+                                <v-chip color="primary mt-4" variant="outlined">
+                                    <div> {{ element.level }} </div>    
+                                </v-chip>
+                                <div class="mt-4 ml-2"> {{ element.date }}</div>
                             </v-card-text>
                             </template>
                         </draggable>
@@ -86,7 +92,7 @@
             <v-col>
                 <v-container>
                     <v-card>
-                        <v-card-title>Done  </v-card-title>
+                        <v-card-title class="bg-green">Done  </v-card-title>
                         <draggable
                             class="list-group"
                             :list="arrDone"
@@ -96,9 +102,11 @@
                         >
                             <template #item="{ element, index }">
                             <v-card-text class="list-group-item">
-                                <div >{{ element.title }}</div>
-                                <div >{{ element.severity }}</div>    
-                                <div> {{ element.date }}</div>
+                                <div class="font-weight-black"> {{ element.title }} </div>
+                                <v-chip color="primary mt-4" variant="outlined">
+                                    <div> {{ element.level }} </div>    
+                                </v-chip>
+                                <div class="mt-4 ml-2"> {{ element.date }}</div>
                             </v-card-text>
                             </template>
                         </draggable>
@@ -137,10 +145,10 @@ export default {
     data(){
         return {
             arrBacklog: [
-                {id:uuid4(), title:'lorem ipsummm', status:'ongoing', severity:'low', date: randomDate()},
-                {id:uuid4(), title:'lorem ipsummm', status:'ongoing', severity:'low', date: randomDate()},
-                {id:uuid4(), title:'lorem ipsummm', status:'ongoing', severity:'medium', date: randomDate()},
-                {id:uuid4(), title:'lorem ipsummm', status:'ongoing', severity:'high', date: randomDate()},
+                {id:uuid4(), title:'Create database design relation', status:'ongoing', level:'low', date: randomDate()},
+                {id:uuid4(), title:'Design UI With figma', status:'ongoing', level:'low', date: randomDate()},
+                {id:uuid4(), title:'Create Restful API', status:'ongoing', level:'medium', date: randomDate()},
+                {id:uuid4(), title:'Create Test case testing', status:'ongoing', level:'high', date: randomDate()},
             ],
             arrProgress: [],
             arrTesting: [],
@@ -149,7 +157,7 @@ export default {
     },
     methods: {
         addTask: function(){
-            this.arrBacklog.push({id:uuid4(),title:this.newTask,status:'ongoing',severity:'low',date: randomDate()})
+            this.arrBacklog.push({id:uuid4(),title:this.newTask,status:'ongoing',level:'low',date: randomDate()})
             console.log({id:uuid4(), title:this.newTask})
         }
     }
@@ -165,5 +173,6 @@ export default {
     margin-right: 20px;
     background-color: #f6f6f6; /* Add a grey background color */
     padding: 12px; /* Add some padding */
+    border-radius: 20px;
 }
 </style>
