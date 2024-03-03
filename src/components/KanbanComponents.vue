@@ -10,6 +10,9 @@
             <v-col cols="4">
                 <v-text-field label="Add task list" variant="outlined" v-model="newTask"></v-text-field>
             </v-col>
+            <v-col cols="4">
+                <v-select v-model="newLevel" :items="levelList" label="select" variant="outlined"></v-select>
+            </v-col>
             <v-col>
                 <v-btn prepend-icon="mdi-plus" variant="outlined" @click="addTask">Add</v-btn>
             </v-col>
@@ -31,9 +34,9 @@
                             <template #item="{ element, index }">
                             <v-card-text class="list-group-item">
                                 <div class="font-weight-black"> {{ element.title }} </div>
-                                <v-chip color="primary mt-4" variant="outlined">
-                                    <div> {{ element.level }} </div>    
-                                </v-chip>
+                                <div class="card-level" :class="{'level-low' : element.level == 'low', 'level-medium' : element.level == 'medium', 'level-high' : element.level == 'high'}"> 
+                                    <p>{{ element.level }}</p>
+                                </div>    
                                 <div class="mt-4 ml-2"> {{ element.date }}</div>
                             </v-card-text>
                             </template>
@@ -55,9 +58,9 @@
                             <template #item="{ element, index }">
                             <v-card-text class="list-group-item">
                                 <div class="font-weight-black"> {{ element.title }} </div>
-                                <v-chip color="primary mt-4" variant="outlined">
-                                    <div> {{ element.level }} </div>    
-                                </v-chip>
+                                <div class="card-level" :class="{'level-low' : element.level == 'low', 'level-medium' : element.level == 'medium', 'level-high' : element.level == 'high'}"> 
+                                    <p>{{ element.level }}</p>
+                                </div> 
                                 <div class="mt-4 ml-2"> {{ element.date }}</div> 
                             </v-card-text>
                             </template>
@@ -79,9 +82,9 @@
                             <template #item="{ element, index }">
                             <v-card-text class="list-group-item">
                                 <div class="font-weight-black"> {{ element.title }} </div>
-                                <v-chip color="primary mt-4" variant="outlined">
-                                    <div> {{ element.level }} </div>    
-                                </v-chip>
+                                <div class="card-level" :class="{'level-low' : element.level == 'low', 'level-medium' : element.level == 'medium', 'level-high' : element.level == 'high'}"> 
+                                    <p>{{ element.level }}</p>
+                                </div>
                                 <div class="mt-4 ml-2"> {{ element.date }}</div>
                             </v-card-text>
                             </template>
@@ -103,9 +106,9 @@
                             <template #item="{ element, index }">
                             <v-card-text class="list-group-item">
                                 <div class="font-weight-black"> {{ element.title }} </div>
-                                <v-chip color="primary mt-4" variant="outlined">
-                                    <div> {{ element.level }} </div>    
-                                </v-chip>
+                                <div class="card-level" :class="{'level-low' : element.level == 'low', 'level-medium' : element.level == 'medium', 'level-high' : element.level == 'high'}"> 
+                                    <p>{{ element.level }}</p>
+                                </div>
                                 <div class="mt-4 ml-2"> {{ element.date }}</div>
                             </v-card-text>
                             </template>
@@ -152,12 +155,14 @@ export default {
             ],
             arrProgress: [],
             arrTesting: [],
-            arrDone: []
+            arrDone: [],
+            levelList: ['low','medium','high'],
+            select:null
         }
     },
     methods: {
         addTask: function(){
-            this.arrBacklog.push({id:uuid4(),title:this.newTask,status:'ongoing',level:'low',date: randomDate()})
+            this.arrBacklog.push({id:uuid4(),title:this.newTask,status:'ongoing',level:this.newLevel,date: randomDate()})
             console.log({id:uuid4(), title:this.newTask})
         }
     }
@@ -174,5 +179,30 @@ export default {
     background-color: #f6f6f6; /* Add a grey background color */
     padding: 12px; /* Add some padding */
     border-radius: 20px;
+}
+.card-level {
+    margin-top: 20px;
+    width: 70px;
+    height: 30px;
+    position: relative;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.level-low {
+    color: #0D47A1;
+    border-color: red;
+    background: #42A5F5;
+}
+.level-medium {
+    color: #F57F17;
+    border-color: red;
+    background: #FFEE58;
+}
+
+.level-high {
+    color: #B71C1C;
+    border-color: red;
+    background: #FF8A80;
 }
 </style>
