@@ -4,21 +4,24 @@ services:
   build:
    context: .
    dockerfile: Dockerfile
+  container_name: vuetify_kanban
   ports:
    - "3000:80"
+  #deploy:
+  # replicas: 3
   networks:
    - fe
 
-  nginx:
-   images: nginx:alpine
-   ports:
-    - "80:80"
-   volumes:
-    - "./nginx/default.conf/:/etc/nginx/default.conf"
-   depends_on:
-    - app
-   networks:
-    - fe
+ nginx:
+  image: nginx:alpine
+  ports:
+   - "80:80"
+  volumes:
+   - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+  depends_on:
+   - app
+  networks:
+   - fe
 
 networks:
  fe:
