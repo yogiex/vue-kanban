@@ -1,0 +1,25 @@
+version: '3.1'
+services:
+ app:  
+  build:
+   context: .
+   dockerfile: Dockerfile
+  ports:
+   - "3000:80"
+  networks:
+   - fe
+
+  nginx:
+   images: nginx:alpine
+   ports:
+    - "80:80"
+   volumes:
+    - "./nginx/default.conf/:/etc/nginx/default.conf"
+   depends_on:
+    - app
+   networks:
+    - fe
+
+networks:
+ fe:
+
